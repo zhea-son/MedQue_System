@@ -101,6 +101,7 @@ class UserCrudController extends CrudController
         \App\Models\User::creating(function ($entry) {
             $entry->password = \Hash::make($entry->password);
             $entry->dept_id = $this->crud->getRequest()->dpt;
+            $entry->doctor_id = $this->crud->getRequest()->dct;
         });
         /**
          * Fields can be defined using the fluent syntax or array syntax:
@@ -128,6 +129,7 @@ class UserCrudController extends CrudController
                 $entry->password = \Hash::make(request('password'));
             }
             $entry->dept_id = $this->crud->getRequest()->dpt;
+            $entry->doctor_id = $this->crud->getRequest()->dct;
         });
     }
 
@@ -139,23 +141,46 @@ class UserCrudController extends CrudController
         CRUD::field('age');
         
         $doctors = \App\Models\User::role('Doctor')->pluck('name','id')->toArray();
-        CRUD::addField([
-            // select_from_array
-            'name'    => 'doctor_id',
-            'label'   => 'Doctor',
-            'type'    => 'select_from_array',
-            'options' => $doctors,
-        ]);
-
         $depts = \App\Models\Dept::pluck('name','id')->toArray();
-        CRUD::addField([
-            // select_from_array
-            'name'    => 'dpt',
-            'fake' => true,
-            'label'   => 'Department',
-            'type'    => 'select_from_array',
-            'options' => $depts,
-        ]);
+        if ($this->crud->getCurrentOperation() == 'update') {
+            $user_id = explode('/',$this->crud->getRequest()->getRequestUri())[3];
+            $user = \App\Models\User::find($user_id);
+
+            CRUD::addField([
+                // select_from_array
+                'name'    => 'dct',
+                'label'   => 'Doctor',
+                'type'    => 'select_from_array',
+                'options' => $doctors,
+                'default' => $user->doctor_id
+            ]);
+            CRUD::addField([
+                // select_from_array
+                'name'    => 'dpt',
+                'fake' => true,
+                'label'   => 'Department',
+                'type'    => 'select_from_array',
+                'options' => $depts,
+                'default' => $user->dept_id
+            ]);
+        } else {
+            CRUD::addField([
+                // select_from_array
+                'name'    => 'dct',
+                'label'   => 'Doctor',
+                'type'    => 'select_from_array',
+                'options' => $doctors,
+            ]);
+            CRUD::addField([
+                // select_from_array
+                'name'    => 'dpt',
+                'fake' => true,
+                'label'   => 'Department',
+                'type'    => 'select_from_array',
+                'options' => $depts,
+            ]);
+        }
+
 
         CRUD::addField([
             // select_from_array
