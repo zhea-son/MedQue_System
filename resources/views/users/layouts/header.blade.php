@@ -3,9 +3,8 @@
         <a href="/">MediQueing System</a>
     </div>
     <div>
-        <a href="/about">About</a>
-        <a href="/login">Login</a>
-        <a href="/register">Register</a>
+        <a class="mx-2" href="{{ route('login') }}">Login</a>
+        <a class="mx-2" href="{{ route('register') }}">Register</a>
     </div>
 </nav>
 
