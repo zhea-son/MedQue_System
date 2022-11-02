@@ -32,7 +32,7 @@ class UserRequest extends FormRequest
             'age' => 'nullable|numeric|min:0|max:100',
             'doctor_id' => 'nullable|exists:users,id',
             'dept_id' => 'nullable|exits:depts,id',
-            'gender' => ['required',Rule::in([0,1])],
+            'gender' => ['required',Rule::in(['Male', 'Female'])],
             'address' => 'required|string'
         ];
     }
