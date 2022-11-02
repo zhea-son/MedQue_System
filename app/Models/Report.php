@@ -34,6 +34,10 @@ class Report extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+    public function appointment()
+    {
+        return $this->belongsTo(App::class);
+    }
 
     /*
     |--------------------------------------------------------------------------
@@ -52,4 +56,14 @@ class Report extends Model
     | MUTATORS
     |--------------------------------------------------------------------------
     */
+    public function setMediaAttribute($value)
+    {
+        $attribute_name = "media";
+        $disk = "public";
+        $destination_path = "reports/" . now()->toDateTimeString();
+
+        $this->uploadFileToDisk($value, $attribute_name, $disk, $destination_path, $fileName = null);
+
+    // return $this->attributes[{$attribute_name}]; // uncomment if this is a translatable field
+    }
 }

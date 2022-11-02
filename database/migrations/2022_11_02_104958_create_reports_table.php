@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
             $table->foreignId('app_id')->constrained();
             $table->string('media')->nullable();
             $table->timestamps();

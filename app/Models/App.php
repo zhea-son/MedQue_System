@@ -28,13 +28,24 @@ class App extends Model
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
-
+    public function doc()
+    {
+        return User::find($this->doctor_id);
+    }
     /*
     |--------------------------------------------------------------------------
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+    public function dept()
+    {
+        return $this->belongsTo(Dept::class);
+    }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
     /*
     |--------------------------------------------------------------------------
     | SCOPES

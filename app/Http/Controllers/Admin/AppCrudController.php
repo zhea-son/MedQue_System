@@ -19,6 +19,9 @@ class AppCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 
+    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation { store as traitStore; }
+    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation { update as traitUpdate; }
+
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
      * 
@@ -27,8 +30,8 @@ class AppCrudController extends CrudController
     public function setup()
     {
         CRUD::setModel(\App\Models\App::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/app');
-        CRUD::setEntityNameStrings('app', 'apps');
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/appointment');
+        CRUD::setEntityNameStrings('appointment', 'appointments');
     }
 
     /**
@@ -39,14 +42,18 @@ class AppCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::column('start');
-        CRUD::column('end');
+        CRUD::column('expected_time');
         CRUD::column('date');
-        CRUD::column('user_id');
-        CRUD::column('doctor_id');
-        CRUD::column('dept_id');
-        CRUD::column('created_at');
-        CRUD::column('updated_at');
+
+        CRUD::column('user');
+        CRUD::addColumn([
+            'label' => 'Doctor',
+            'type'  => 'text',
+            'value' => function($v) {
+                return $v->doc() ? $v->doc()->name : '';
+            }
+        ]);
+        CRUD::column('dept');
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -65,13 +72,7 @@ class AppCrudController extends CrudController
     {
         CRUD::setValidation(AppRequest::class);
 
-        CRUD::field('start');
-        CRUD::field('end');
-        CRUD::field('date');
-        CRUD::field('user_id');
-        CRUD::field('doctor_id');
-        CRUD::field('dept_id');
-
+        $this->addUserFields();
         /**
          * Fields can be defined using the fluent syntax or array syntax:
          * - CRUD::field('price')->type('number');
@@ -87,6 +88,127 @@ class AppCrudController extends CrudController
      */
     protected function setupUpdateOperation()
     {
-        $this->setupCreateOperation();
+        CRUD::setValidation(AppRequest::class);
+
+        $this->addUserFields();
     }
+
+    public function store()
+    {
+        // do something before validation, before save, before everything; for example:
+        $this->crud->addField(['type' => 'hidden', 'name' => 'expected_time']);
+        $this->crud->addField(['type' => 'hidden', 'name' => 'doctor_id']);
+        // $this->crud->removeField('password_confirmation');
+
+        // Note: By default Backpack ONLY saves the inputs that were added on page using Backpack fields.
+        // This is done by stripping the request of all inputs that do NOT match Backpack fields for this
+        // particular operation. This is an added security layer, to protect your database from malicious
+        // users who could theoretically add inputs using DeveloperTools or JavaScript. If you're not properly
+        // using $guarded or $fillable on your model, malicious inputs could get you into trouble.
+
+        // However, if you know you have proper $guarded or $fillable on your model, and you want to manipulate 
+        // the request directly to add or remove request parameters, you can also do that.
+        // We have a config value you can set, either inside your operation in `config/backpack/crud.php` if
+        // you want it to apply to all CRUDs, or inside a particular CrudController:
+            // $this->crud->setOperationSetting('saveAllInputsExcept', ['_token', '_method', 'http_referrer', 'current_tab', 'save_action']);
+        // The above will make Backpack store all inputs EXCEPT for the ones it uses for various features.
+        // So you can manipulate the request and add any request variable you'd like.
+        // $this->crud->getRequest()->request->add(['author_id'=> backpack_user()->id]);
+        // $this->crud->getRequest()->request->remove('password_confirmation');
+        
+        $doctor_id = $this->crud->getRequest()->dct;
+
+        $this->crud->getRequest()->request->remove('dct');
+
+        $this->crud->getRequest()->request->add(['expected_time'=> now()->format('H:i:s')]);
+        $this->crud->getRequest()->request->add(['doctor_id'=> $doctor_id]);
+
+        $response = $this->traitStore();
+        // do something after save
+        return $response;
+    }
+
+    public function update()
+    {
+        // do something before validation, before save, before everything; for example:
+        $this->crud->addField(['type' => 'hidden', 'name' => 'expected_time']);
+        $this->crud->addField(['type' => 'hidden', 'name' => 'doctor_id']);
+        // $this->crud->addField(['type' => 'hidden', 'name' => 'author_id']);
+        // $this->crud->removeField('password_confirmation');
+
+        // Note: By default Backpack ONLY saves the inputs that were added on page using Backpack fields.
+        // This is done by stripping the request of all inputs that do NOT match Backpack fields for this
+        // particular operation. This is an added security layer, to protect your database from malicious
+        // users who could theoretically add inputs using DeveloperTools or JavaScript. If you're not properly
+        // using $guarded or $fillable on your model, malicious inputs could get you into trouble.
+
+        // However, if you know you have proper $guarded or $fillable on your model, and you want to manipulate 
+        // the request directly to add or remove request parameters, you can also do that.
+        // We have a config value you can set, either inside your operation in `config/backpack/crud.php` if
+        // you want it to apply to all CRUDs, or inside a particular CrudController:
+            // $this->crud->setOperationSetting('saveAllInputsExcept', ['_token', '_method', 'http_referrer', 'current_tab', 'save_action']);
+        // The above will make Backpack store all inputs EXCEPT for the ones it uses for various features.
+        // So you can manipulate the request and add any request variable you'd like.
+        // $this->crud->getRequest()->request->add(['author_id'=> backpack_user()->id]);
+        // $this->crud->getRequest()->request->remove('password_confirmation');
+        // $this->crud->getRequest()->request->add(['author_id'=> backpack_user()->id]);
+        // $this->crud->getRequest()->request->remove('password_confirmation');
+
+        $doctor_id = $this->crud->getRequest()->dct;
+
+        $this->crud->getRequest()->request->remove('dct');
+
+        $this->crud->getRequest()->request->add(['expected_time'=> now()->format('H:i:s')]);
+        $this->crud->getRequest()->request->add(['doctor_id'=> $doctor_id]);
+        
+        $response = $this->traitUpdate();
+        // do something after save
+        return $response;
+    }
+
+    protected function addUserFields()
+    {
+        CRUD::field('date');
+        CRUD::addField([  // Select
+            'label'     => "User",
+            'type'      => 'select',
+            'name'      => 'user_id',
+            'options'   => (function ($query) {
+                 return $query->whereHas(
+                    'roles', function($q){
+                        $q->where('name', 'Patient');
+                    })->get();
+             }), //  you can use this to filter the results show in the select
+         ],);
+
+        $doctors = \App\Models\User::role('Doctor')->pluck('name','id')->toArray();
+        if ($this->crud->getCurrentOperation() == 'update') {
+            $appointment_id = explode('/',$this->crud->getRequest()->getRequestUri())[3];
+            $appointment = \App\Models\App::find($appointment_id);
+
+            CRUD::addField([
+                // select_from_array
+                'name'    => 'dct',
+                'label'   => 'Doctor',
+                'type'    => 'select_from_array',
+                'options' => $doctors,
+                'default' => $appointment->doctor_id
+            ]);
+        } else {
+            CRUD::addField([
+                // select_from_array
+                'name'    => 'dct',
+                'label'   => 'Doctor',
+                'type'    => 'select_from_array',
+                'options' => $doctors,
+            ]);
+        }
+
+        CRUD::addField([
+            'name' => 'dept_id',
+            'label' => 'Department'
+        ]);
+    }
+
+
 }

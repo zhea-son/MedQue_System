@@ -10,5 +10,5 @@
 @endif
 
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('dept') }}"><i class="nav-icon la la-hospital"></i> Departments</a></li>
-<li class="nav-item"><a class="nav-link" href="{{ backpack_url('app') }}"><i class="nav-icon la la-calendar"></i> Appointments</a></li>
+<li class="nav-item"><a class="nav-link" href="{{ backpack_url('appointment') }}"><i class="nav-icon la la-calendar"></i> Appointments</a></li>
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('report') }}"><i class="nav-icon la la-file"></i> Reports</a></li>
