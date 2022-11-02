@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\UserRequest;
+use App\Http\Requests\UserEditRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
@@ -18,6 +19,8 @@ class UserCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+
+    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation { store as traitStore; }
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
@@ -41,7 +44,40 @@ class UserCrudController extends CrudController
     {
         CRUD::column('name');
         CRUD::column('email');
-        CRUD::column('password');
+        CRUD::column('age');
+        CRUD::addColumn([
+            'label' => 'Doctor',
+            'type'  => 'text',
+            'value' => function($v) {
+                return $v->doctor() ? $v->doctor()->name : '';
+            }
+        ]);
+        CRUD::addColumn([
+            'label' => 'Department',
+            'type'  => 'text',
+            'value' => function($v) {
+                return $v->dept() ? $v->dept()->name : '';
+            }
+        ]);
+        CRUD::column('gender');
+        CRUD::column('address');
+
+        CRUD::addColumn([
+            'name'  => 'roles',
+            'label' => 'Roles',
+            'type'  => 'text',
+            'value' => function($v) {
+                $str = '';
+                foreach ($v->roles as $key => $value) {
+                    if ($key == count($v->roles)-1)
+                        $str .= $value->name;
+                    else 
+                        $str .= $value->name . ', ';
+                }
+                return $str;
+            }
+        ]);
+        CRUD::column('address');
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -60,10 +96,12 @@ class UserCrudController extends CrudController
     {
         CRUD::setValidation(UserRequest::class);
 
-        CRUD::field('name');
-        CRUD::field('email');
-        CRUD::field('password');
+        $this->addUserFields();
 
+        \App\Models\User::creating(function ($entry) {
+            $entry->password = \Hash::make($entry->password);
+            $entry->dept_id = $this->crud->getRequest()->dpt;
+        });
         /**
          * Fields can be defined using the fluent syntax or array syntax:
          * - CRUD::field('price')->type('number');
@@ -79,6 +117,68 @@ class UserCrudController extends CrudController
      */
     protected function setupUpdateOperation()
     {
-        $this->setupCreateOperation();
+        CRUD::setValidation(UserEditRequest::class);
+        
+        $this->addUserFields(); 
+
+        \App\Models\User::updating(function ($entry) {
+            if (request('password') == null) {
+                $entry->password = $entry->getOriginal('password');
+            } else {
+                $entry->password = \Hash::make(request('password'));
+            }
+            $entry->dept_id = $this->crud->getRequest()->dpt;
+        });
+    }
+
+    protected function addUserFields()
+    {
+        CRUD::field('name');
+        CRUD::field('email');
+        CRUD::field('password');
+        CRUD::field('age');
+        
+        $doctors = \App\Models\User::role('Doctor')->pluck('name','id')->toArray();
+        CRUD::addField([
+            // select_from_array
+            'name'    => 'doctor_id',
+            'label'   => 'Doctor',
+            'type'    => 'select_from_array',
+            'options' => $doctors,
+        ]);
+
+        $depts = \App\Models\Dept::pluck('name','id')->toArray();
+        CRUD::addField([
+            // select_from_array
+            'name'    => 'dpt',
+            'fake' => true,
+            'label'   => 'Department',
+            'type'    => 'select_from_array',
+            'options' => $depts,
+        ]);
+
+        CRUD::addField([
+            // select_from_array
+            'name'    => 'gender',
+            'label'   => 'Gender',
+            'type'    => 'select_from_array',
+            'options' => [
+                0 => 'Male',
+                1 => 'Female'
+            ],
+        ]);
+
+        CRUD::addField([   // Checklist
+            'label'     => 'Roles',
+            'type'      => 'checklist',
+            'name'      => 'roles',
+            'entity'    => 'roles',
+            'attribute' => 'name',
+            'model'     => "Backpack\PermissionManager\app\Models\Role",
+            'pivot'     => true,
+            // 'number_of_columns' => 3,
+        ]);
+
+        CRUD::field('address');
     }
 }

@@ -24,6 +24,11 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'age',
+        'gender',
+        'dept_id',
+        'doctor_id',
+        'address'
     ];
 
     /**
@@ -44,4 +49,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function doctor()
+    {
+        return User::find($this->doctor_id);
+    }
+
+    public function dept()
+    {
+        return Dept::find($this->dept_id);
+    }
 }

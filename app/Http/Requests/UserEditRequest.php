@@ -4,8 +4,9 @@ namespace App\Http\Requests;
 
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
+use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
-class UserRequest extends FormRequest
+class UserEditRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,50 +15,24 @@ class UserRequest extends FormRequest
      */
     public function authorize()
     {
-        // only allow updates if the user is logged in
         return backpack_auth()->check();
     }
 
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function rules()
     {
         return [
             'name' => 'required|min:2|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required',
+            'email' => 'required|email|unique:users,email,'.CRUD::getCurrentEntryId(),
             'age' => 'numeric|min:0|max:100',
             'doctor_id' => 'nullable|exists:users,id',
             'dept_id' => 'nullable|exits:depts,id',
             'gender' => ['required',Rule::in([0,1])],
             'address' => 'required|string'
-        ];
-    }
-
-    /**
-     * Get the validation attributes that apply to the request.
-     *
-     * @return array
-     */
-    public function attributes()
-    {
-        return [
-            //
-        ];
-    }
-
-    /**
-     * Get the validation messages that apply to the request.
-     *
-     * @return array
-     */
-    public function messages()
-    {
-        return [
-            //
         ];
     }
 }
