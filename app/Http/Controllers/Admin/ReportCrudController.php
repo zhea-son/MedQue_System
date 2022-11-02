@@ -39,9 +39,26 @@ class ReportCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::column('user_id');
-        CRUD::column('app_id');
-        CRUD::column('media');
+        CRUD::addColumn([
+            'label' => 'Appointment',
+            'type'  => 'text',
+            'value' => function($v) {
+                $app = \App\Models\App::find($v->app_id);
+                return $app->user->name . ' -- ' . $app->expected_time . ' -- ' . $app->dept->name;
+            }
+        ]);
+
+        CRUD::addColumn([
+            'name'      => 'media', // The db column name
+            'label'     => 'Report', // Table column heading
+            'type'      => 'image',
+            'prefix' => 'storage/',
+            // image from a different disk (like s3 bucket)
+            // 'disk'   => 'disk-name', 
+            // optional width/height if 25px is not ok with you
+            'height' => 'auto',
+            'width'  => '200px',
+        ]);
         CRUD::column('created_at');
         CRUD::column('updated_at');
 
@@ -50,6 +67,11 @@ class ReportCrudController extends CrudController
          * - CRUD::column('price')->type('number');
          * - CRUD::addColumn(['name' => 'price', 'type' => 'number']); 
          */
+    }
+
+    protected function setupShowOperation()
+    {
+        $this->setupListOperation();
     }
 
     /**
@@ -62,9 +84,26 @@ class ReportCrudController extends CrudController
     {
         CRUD::setValidation(ReportRequest::class);
 
-        CRUD::field('user_id');
-        CRUD::field('app_id');
-        CRUD::field('media');
+        $apps = \App\Models\App::all();
+        $apps_array = [];
+        foreach ($apps as $app) {
+            $apps_array[$app->id] = $app->user->name . ' -- ' . $app->expected_time . ' -- ' . $app->dept->name;
+        }
+
+        CRUD::addField([
+            // select_from_array
+            'name'    => 'app_id',
+            'label'   => 'Appointment',
+            'type'    => 'select_from_array',
+            'options' => $apps_array,
+        ]);
+
+        CRUD::addField([   // Upload
+            'name'      => 'media',
+            'label'     => 'Report',
+            'type'      => 'upload',
+            'upload'    => true,
+        ]);
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:

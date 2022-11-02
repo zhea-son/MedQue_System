@@ -15,9 +15,10 @@ return new class extends Migration
     {
         Schema::create('apps', function (Blueprint $table) {
             $table->id();
-            $table->time('start');
-            $table->time('end');
+            $table->time('expected_time');
             $table->date('date');
+            $table->enum('status', ['Unpaid', 'Paid', 'Checked'])->default('Unpaid');
+            $table->integer('priority')->default(1);
             $table->foreignId('user_id')->constrained();
             $table->unsignedBigInteger('doctor_id');
             $table->foreignId('dept_id')->constrained();
