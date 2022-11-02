@@ -188,8 +188,8 @@ class UserCrudController extends CrudController
             'label'   => 'Gender',
             'type'    => 'select_from_array',
             'options' => [
-                0 => 'Male',
-                1 => 'Female'
+                'Male' => 'Male',
+                'Female' => 'Female'
             ],
         ]);
 
