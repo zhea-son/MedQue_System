@@ -28,7 +28,7 @@ class DeptCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Dept::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/dept');
-        CRUD::setEntityNameStrings('dept', 'depts');
+        CRUD::setEntityNameStrings('department', 'departments');
     }
 
     /**
@@ -41,8 +41,7 @@ class DeptCrudController extends CrudController
     {
         CRUD::column('name');
         CRUD::column('floor');
-        CRUD::column('created_at');
-        CRUD::column('updated_at');
+        
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
