@@ -29,7 +29,7 @@ class UserRequest extends FormRequest
             'name' => 'required|min:2|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required',
-            'age' => 'numeric|min:0|max:100',
+            'age' => 'nullable|numeric|min:0|max:100',
             'doctor_id' => 'nullable|exists:users,id',
             'dept_id' => 'nullable|exits:depts,id',
             'gender' => ['required',Rule::in([0,1])],
