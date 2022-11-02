@@ -7,9 +7,10 @@
     &copy;Copyright @ CompilationError<br>
 
 </div> --}}
-
 <footer class="text-center text-white" style="background-color: #f1f1f1;">
     <div class="container pt-9">
+        <h1 class="text-center text-black">Queing system</h1>
+<br>
       <div class="flex justify-center mb-9">
         <a href="#!" class="mr-9 text-gray-800">
           <svg
