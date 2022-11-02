@@ -3,20 +3,20 @@
 
 @section('content')
     
-<div class="herosection  bg-slate-200 " style="height:150px; width:100% background-image:url('medicare.jpg');">
-    <h1 style="font-weight:bold; text-align:center; font-size:50px;">Welcome to MediQueing System</h1>
+<div class="herosection  bg-slate-200 " style="height:auto; width:100%;">
+    <h1 style="font-weight:bold; text-align:center; font-size:70px;padding-top:40px;">Welcome to MediQueing System</h1>
     <br>
-<h2 class="text-center">
+<h2 class="text-center" style="font-size:20px;">
     Make life easier with the medicare,by taking the service 
 </h2>
 </div> 
-
-<div class="img" >
-<img src="/images/medical.jpg " style="width:100%; height:350px">
-</div>
 <br>
+{{-- <div class="img" >
+<img src="/images/covid.jpg " style="width:100%; height:350px ;background-size:cover;">
+</div>
+<br> --}}
 
-<div class="gallerysec" style="width:100%;height:300px; display:flex;justify-content:center">
+<div class="gallerysec" style="width:100%;height:auto; display:flex; flex-wrap:wrap;justify-content:center">
     <div class="div1" style="width:250px;height:250px;text-align:center;background-color:rgb(109, 176, 236);"><br>1
     <br><br>
     <h2 class="text-white font-bold" style="font-size:30px;">Heart Rate</h2>
@@ -49,8 +49,8 @@
 {{-- images and desc// third section --}}
 
 <div class="imgtext " style="width:100%;height:500px; display:flex; justify-content:center;">
-    <div class="img" style="width:450px ;height:450px;">
-        <img src="/images/doctor.jpg" style="width:100%; height:70vh;">
+    <div class="img" style="width:450px ;height:400px; overflow:hidden;">
+        <img src="/images/doctor.jpg" style="width:100%; height:60vh;" style="background-size:cover;">
     </div>
     <div class="text" style="width:450px ;height:450px;">
         <h1 style="font-size:40px;font-weight:bold;">Why to Choose Us?</h1>
