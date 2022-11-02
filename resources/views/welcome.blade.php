@@ -1,64 +1,74 @@
+
 @extends('users.layouts.main')
 
 @section('content')
     
-    <div class="main flex justify-between h-3/6 ">
-        <div class="care h-3/6 w-3/6">
-        Medicare
-        <br>
-        Best health service
-        <br>
-        <div class="flex space-x-2 ">
-            <button type="button" class="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Button</button>
-          </div>
-        </div>
-        <img src="">
+<div class="herosection  bg-slate-200 " style="height:150px; width:100% background-image:url('medicare.jpg');">
+    <h1 style="font-weight:bold; text-align:center; font-size:50px;">Welcome to MediQueing System</h1>
+    <br>
+<h2 class="text-center">
+    Make life easier with the medicare,by taking the service 
+</h2>
+</div> 
+
+<div class="img" >
+<img src="/images/medical.jpg " style="width:100%; height:350px">
+</div>
+<br>
+
+<div class="gallerysec" style="width:100%;height:300px; display:flex;justify-content:center">
+    <div class="div1" style="width:250px;height:250px;text-align:center;background-color:rgb(109, 176, 236);"><br>1
+    <br><br>
+    <h2 class="text-white font-bold" style="font-size:30px;">Heart Rate</h2>
+<br>
+<h3 class="text-white px-5">Check your heart and be an healty</h3>
+
     </div>
-<br><br>
-    <div class="flex justify-around border-solid ">
-        <div class="block rounded-lg shadow-lg bg-white max-w-sm text-center">
-          <div class="py-3 px-6 border-b border-gray-300">
-            Appointment
-          </div>
-          <div class="p-6">
-            <h5 class="text-gray-900 text-xl font-medium mb-2">Doctors</h5>
-            <p class="text-gray-700 text-base mb-4">
-            Cardiologist
-                    </p>
-            <button type="button" class=" inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">See</button>
-          </div>
-         
+    <div class="div1"  style="width:250px;height:250px; text-align:center;background-color:rgb(124, 184, 236);"><br>2
+    <br><br>
+    <h2 class="text-white font-bold " style="font-size:30px;">Lab test</h2>
+    <br>
+<h3 class="text-white px-5">Test the blood and see you are fine or not</h3>
+
+    </div>
+    <div class="div1" style="width:250px;height:250px;text-align:center;background-color:rgb(109, 176, 236);"><br>3
+        <br><br>
+        <h2 class="text-white font-bold"style="font-size:30px;">OPD</h2>
+        <br>
+<h3 class="text-white px-5">Check your heart and be an healty</h3>
+    </div>
+    <div class="div1" style="width:250px;height:250px;text-align:center; background-color:rgb(124, 184, 236);"><br>4
+        <br><br>
+        <h2 class="text-white font-bold"style="font-size:30px;">Symptoms</h2>
+        <br>
+<h3 class="text-white px-5">See the symptoms and cure </h3>
+    </div>
+
+</div>
+
+{{-- images and desc// third section --}}
+
+<div class="imgtext " style="width:100%;height:500px; display:flex; justify-content:center;">
+    <div class="img" style="width:450px ;height:450px;">
+        <img src="/images/doctor.jpg" style="width:100%; height:70vh;">
+    </div>
+    <div class="text" style="width:450px ;height:450px;">
+        <h1 style="font-size:40px;font-weight:bold;">Why to Choose Us?</h1>
+        It is the fast and reliable ways for quick medical cure. Be aware and be healthy !
+        <br><br>
+        <div class="buttext " >
+            <button style="background-color:blue;border:none; padding:8px; color:white; font-size:20px;margin-left:10px;">+</button>
+            &nbsp&nbsp&nbsp&nbsp<h1 style="display: inline-block;font-weight:bold;font-size:20px;">Faster</h1>
+            <br><br>
+            <button style="background-color:blue;border:none; padding:8px; color:white; font-size:20px;margin-left:10px;">+</button>
+            &nbsp&nbsp&nbsp&nbsp<h1 style="display: inline-block;font-weight:bold;font-size:20px;">Reliable</h1>
+            <br><br>
+            <button style="background-color:blue;border:none; padding:8px; color:white; font-size:20px;margin-left:10px;">+</button>
+            &nbsp&nbsp&nbsp&nbsp<h1 style="display: inline-block;font-weight:bold;font-size:20px;">Best Service</h1>
+            <br><br>
+            <button style="background-color:blue;border:none; padding:8px; color:white; font-size:20px;margin-left:10px;">+</button>
+            &nbsp&nbsp&nbsp&nbsp<h1 style="display: inline-block;font-weight:bold;font-size:20px;">Easy</h1>
         </div>
-        {{--  --}}
-        <div class="block rounded-lg shadow-lg bg-white max-w-sm text-center">
-            <div class="py-3 px-6 border-b border-gray-300">
-              Appointment
-            </div>
-            <div class="p-6">
-              <h5 class="text-gray-900 text-xl font-medium mb-2">Doctors</h5>
-              <p class="text-gray-700 text-base mb-4">
-              Cardiologist
-                      </p>
-              <button type="button" class=" inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">See</button>
-            </div>
-           
-          </div>
-          {{--  --}}
-
-          <div class="block rounded-lg shadow-lg bg-white max-w-sm text-center">
-            <div class="py-3 px-6 border-b border-gray-300">
-              Appointment
-            </div>
-            <div class="p-6">
-              <h5 class="text-gray-900 text-xl font-medium mb-2">Doctors</h5>
-              <p class="text-gray-700 text-base mb-4">
-              Cardiologist
-                      </p>
-              <button type="button" class=" inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">See</button>
-            </div>
-           
-          </div>
-      </div>
-
-    
+    </div>
+</div>
 @endsection
