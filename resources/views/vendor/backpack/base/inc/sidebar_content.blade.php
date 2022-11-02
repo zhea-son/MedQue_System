@@ -5,5 +5,6 @@
 @if (backpack_user()->hasRole('Admin'))
     <li class="nav-item"><a class="nav-link" href="{{ backpack_url('user') }}"><i class="la la-users nav-icon"></i>
             Users</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ backpack_url('role') }}"><i class="nav-icon la la-user-tag"></i> Roles</a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ backpack_url('role') }}"><i class="nav-icon la la-user-tag"></i>
+            Roles</a></li>
 @endif
