@@ -11,3 +11,4 @@
 
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('dept') }}"><i class="nav-icon la la-question"></i> Depts</a></li>
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('app') }}"><i class="nav-icon la la-question"></i> Apps</a></li>
+<li class="nav-item"><a class="nav-link" href="{{ backpack_url('report') }}"><i class="nav-icon la la-question"></i> Reports</a></li>
