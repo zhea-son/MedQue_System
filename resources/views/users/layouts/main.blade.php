@@ -11,7 +11,11 @@
 </head>
 <body>
     @include('users.layouts.header')
+
+
     @yield('content')
+
+    
     @include('users.layouts.footer')
 </body>
 </html>

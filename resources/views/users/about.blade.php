@@ -3,7 +3,7 @@
 @section('content')
     
     <div class="min-h-screen bg-blue-100">
-        <p class="text-center">This is the Home page</p>
+        <p class="text-center">This is the About page</p>
     </div>
     
 @endsection

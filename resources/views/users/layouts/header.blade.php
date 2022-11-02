@@ -1,21 +1,16 @@
-{{-- @extends('users.layouts.header')
-<div class="header">
-    <h1>this is a header</h1>
-</div>
-@section('content')
-@endsection
-@extend('users.layouts.footer') --}}
+<nav class="font-sans flex flex-col text-center sm:flex-row sm:text-left sm:justify-between py-4 px-6 bg-white shadow sm:items-baseline w-full">
+    <div class="mb-2 sm:mb-0">
+        <a href="/">Home</a>
+    </div>
+    <div>
+        <a href="/about">About</a>
+        <a href="/login">Login</a>
+        <a href="/register">Register</a>
+    </div>
+</nav>
 
-<div class="header bg-slate-200 flex ">
-<div class="logo">Queing System</div>
-<div class="side">
-   <ul>
-    <li><a href="">Home</a></li>
-    <li><a href="">About</a></li>
-    <li><a href="">Section </a></li>
-    <li><a href="">Gallery</a></li>
-    <li><a href="">Contact</a></li>
-   </ul>
-</div>
-</div>
+
+
+
+
 
