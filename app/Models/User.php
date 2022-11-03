@@ -64,4 +64,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(App::class);
     }
+
+    public function viewAppointment($crud = false)
+    {
+        return '<a class="btn btn-sm btn-link" href="/admin/appointment?doc='. urlencode($this->id) .'"' . 'data-toggle="tooltip" title="View appointments of department."><i class="la la-search"></i> View appointment</a>';
+    }
 }

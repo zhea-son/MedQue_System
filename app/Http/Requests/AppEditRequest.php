@@ -24,11 +24,9 @@ class AppEditRequest extends FormRequest
     public function rules()
     {
         return [
-            'date' => 'required|date',
-            'user_id' => 'required|exists:users,id',
-            'doctor_id' => 'required|exists:users,id',
-            'severity' => 'required',
-            'status' => 'required'
+            'date' => 'nullable|date',
+            'user_id' => 'nullable|exists:users,id',
+            'doctor_id' => 'nullable|exists:users,id',
         ];
     }
 }
