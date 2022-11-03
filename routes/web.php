@@ -17,6 +17,10 @@ use App\Http\Controllers\UserController;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/about', function () {
+    return view('users.about');
+});
+
 
 Route::get('/dashboard', [UserController::class, 'index'] )->middleware(['auth', 'verified'])->name('dashboard');
 
