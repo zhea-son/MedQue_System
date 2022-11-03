@@ -35,7 +35,11 @@
                     <h3 style="font-size:20px;">Request an appointment</h3>
                     <br>
                     <form method="GET" action="{{ route('availability') }}">
+
                         <b>Date</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="date" min="{{ now()->addDays(1)->toDateString() }}" max="{{ now()->addDays(8)->toDateString() }}" name="date">
+
+                        
+
                         <br><br>
                         <b>Department</b> &nbsp;&nbsp;
                         <select
