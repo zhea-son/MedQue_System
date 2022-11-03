@@ -12,13 +12,11 @@
 <br><br>
 </div> 
 <br>
-{{-- <div class="img" >
-<img src="/images/covid.jpg " style="width:100%; height:350px ;background-size:cover;">
-</div>
-<br> --}}
+
 
 <div class="gallerysec" style="width:100%;height:auto; display:flex; flex-wrap:wrap;justify-content:center">
     <div class="div1" style="width:250px;height:250px;text-align:center;background-color:rgb(109, 176, 236);"><br>1
+        
     <br><br>
     <h2 class="text-white font-bold" style="font-size:30px;">Heart Rate</h2>
 <br>
@@ -58,16 +56,16 @@
         It is the fast and reliable ways for quick medical cure. Be aware and be healthy !
         <br><br>
         <div class="buttext " >
-            <button style="background-color:blue;border:none; padding:8px; color:white; font-size:20px;margin-left:10px;">+</button>
+            <button style="background-color:rgb(0, 78, 202);border:none; padding:8px; color:white; font-size:20px;margin-left:10px;">+</button>
             &nbsp&nbsp&nbsp&nbsp<h1 style="display: inline-block;font-weight:bold;font-size:20px;">Faster</h1>
             <br><br>
-            <button style="background-color:blue;border:none; padding:8px; color:white; font-size:20px;margin-left:10px;">+</button>
+            <button style="background-color:rgb(0, 78, 202);border:none; padding:8px; color:white; font-size:20px;margin-left:10px;">+</button>
             &nbsp&nbsp&nbsp&nbsp<h1 style="display: inline-block;font-weight:bold;font-size:20px;">Reliable</h1>
             <br><br>
-            <button style="background-color:blue;border:none; padding:8px; color:white; font-size:20px;margin-left:10px;">+</button>
+            <button style="background-color:rgb(0, 78, 202);border:none; padding:8px; color:white; font-size:20px;margin-left:10px;">+</button>
             &nbsp&nbsp&nbsp&nbsp<h1 style="display: inline-block;font-weight:bold;font-size:20px;">Best Service</h1>
             <br><br>
-            <button style="background-color:blue;border:none; padding:8px; color:white; font-size:20px;margin-left:10px;">+</button>
+            <button style="background-color:rgb(0, 78, 202);border:none; padding:8px; color:white; font-size:20px;margin-left:10px;">+</button>
             &nbsp&nbsp&nbsp&nbsp<h1 style="display: inline-block;font-weight:bold;font-size:20px;">Easy</h1>
         </div>
     </div>

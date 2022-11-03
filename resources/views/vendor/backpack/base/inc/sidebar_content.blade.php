@@ -5,10 +5,10 @@
 @if (backpack_user()->hasRole('Admin'))
     <li class="nav-item"><a class="nav-link" href="{{ backpack_url('patient') }}"><i class="la la-users nav-icon"></i>
             Patient</a></li>
-    <li class="nav-item"><a class="nav-link" href="{{ backpack_url('doctor') }}"><i class="nav-icon la la-stethoscope"></i>
-            Doctors</a></li>
-    <li class="nav-item"><a class="nav-link" href="{{ backpack_url('nurse') }}"><i class="nav-icon la la-nurse"></i>
-            Nurses</a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ backpack_url('doctor') }}">&nbsp<i class="las la-stethoscope"></i>
+        &nbsp&nbsp&nbspDoctors</a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ backpack_url('nurse') }}">&nbsp<i class="las la-user-nurse"></i>
+        &nbsp&nbsp&nbspNurses</a></li>
     <li class="nav-item"><a class="nav-link" href="{{ backpack_url('role') }}"><i class="nav-icon la la-user-tag"></i>
             Roles</a></li>
     <li class="nav-item"><a class="nav-link" href="{{ backpack_url('dept') }}"><i class="nav-icon la la-hospital"></i>
