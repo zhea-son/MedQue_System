@@ -58,7 +58,9 @@ class UserCrudController extends CrudController
             'type'  => 'text',
             'value' => function($v) {
                 return $v->dept() ? $v->dept()->name : '';
-            }
+            },
+            'orderable' => true,
+
         ]);
         CRUD::column('gender');
         CRUD::column('address');
