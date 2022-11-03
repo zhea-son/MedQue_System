@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\AppRequest;
+use App\Http\Requests\AppEditRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
@@ -33,7 +34,7 @@ class AppCrudController extends CrudController
         CRUD::setRoute(config('backpack.base.route_prefix') . '/appointment');
         CRUD::setEntityNameStrings('appointment', 'appointments');
 
-        $this->crud->orderBy('priority');
+        $this->crud->orderBy('priority', 'DESC')->orderBy('created_at', 'ASC');
     }
 
     /**
@@ -101,7 +102,7 @@ class AppCrudController extends CrudController
      */
     protected function setupUpdateOperation()
     {
-        CRUD::setValidation(AppRequest::class);
+        CRUD::setValidation(AppEditRequest::class);
 
         $this->addUserFields();
     }
@@ -148,7 +149,7 @@ class AppCrudController extends CrudController
     }
 
     public function update()
-    {
+    {   
         // do something before validation, before save, before everything; for example:
         $this->crud->addField(['type' => 'hidden', 'name' => 'expected_time']);
         $this->crud->addField(['type' => 'hidden', 'name' => 'doctor_id']);
@@ -180,12 +181,28 @@ class AppCrudController extends CrudController
 
         $this->crud->getRequest()->request->add(['expected_time'=> \App\Models\App::getExpectedTime($date, $doctor_id)]);
         $this->crud->getRequest()->request->add(['doctor_id'=> $doctor_id]);
-        $this->crud->getRequest()->request->add(['is_online'=> false]);
-
-        if($this->crud->getRequest()->is_critical) {
+        
+        $app_id = explode('/',$this->crud->getRequest()->getRequestUri())[3];
+        $app = \App\Models\App::find($app_id);
+        
+        $severity = $this->crud->getRequest()->severity;
+        $priority = 1;
+        if($severity) {
             $this->crud->addField(['type' => 'hidden', 'name' => 'priority']);
-            $this->crud->getRequest()->request->add(['priority'=> 3]);
+            if ($severity == 'Emergency') {
+                $priority = 4;
+            } else if ($severity == 'Urgent') {
+                $priority = 3;
+            } else if ($severity == 'Referal') {
+                $priority = 2;
+            }
         }
+        if ($app->status == 'Unpaid' && $this->crud->getRequest()->status == 'Paid') {
+            if (strtotime(now()) <= strtotime($app->expected_time) + config('app.time_frame')*60) {
+                $priority += 1;
+            }
+        }
+        $this->crud->getRequest()->request->add(['priority'=> $priority]);
         
         $response = $this->traitUpdate();
         // do something after save
@@ -244,12 +261,6 @@ class AppCrudController extends CrudController
                         'Referal' => 'Referal',
                         'Normal' => 'Normal',
                     ]
-                ],
-                [   // Checkbox
-                    'name'  => 'is_critical',
-                    'label' => 'Critical case',
-                    'fake'  => 'true',
-                    'type'  => 'checkbox'
                 ],
             ]);
 

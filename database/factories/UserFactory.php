@@ -34,6 +34,10 @@ class UserFactory extends Factory
     {
         return $this->assignRole('Patient');
     }
+    public function accountant()
+    {
+        return $this->assignRole('Accountant');
+    }
     private function assignRole(...$roles)
     {
         return $this->afterCreating(fn(User $user) => $user->syncRoles($roles));
