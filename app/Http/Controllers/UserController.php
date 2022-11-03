@@ -9,8 +9,16 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $depts = \App\Models\Dept::all();
+        $apps = $request->user()->appointments;
+        $date = now()->toDateString();
+        $today_apps = \App\Models\App::where('user_id', $request->user()->id)
+                                    ->where('date', $date)
+                                    ->get();
+        $in_queue_count = \App\Models\App::where('date', $date)
+                                        ->where('status', 'Paid')
+                                        ->count();
 
-        return view('users.dashboard', compact('depts'));
+        return view('users.dashboard', compact('depts', 'apps', 'today_apps', 'in_queue_count'));
     }
 
     public function availability(Request $request)
