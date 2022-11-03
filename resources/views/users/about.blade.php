@@ -7,8 +7,8 @@
     @vite('resources/css/app.css')
     <title>Document</title>
 </head>
-<body>
-    <div class="herosection " style="background-color:rgb(1, 133, 194);margin:0; padding:0;">
+<body style="margin:0 auto;">
+    <div class="herosection " style="background-color:rgb(1, 133, 194);min-width:400px;">
         <h1 style="font-weight:bold; text-align:center; font-size:70px;padding-top:10px;color:white;font-family:sans-serif;">About Us </h1>
     <h2 class="text-center" style="text-align:center; color:white;font-family:sans-serif;">
         Make life easier with the Mediqueing System,by taking the service 
@@ -25,11 +25,11 @@
         </h3>
         <br>
         <div class="main" style="display:flex; justify-content:center;gap:10px;">
-        <button style="background-color:rgb(52, 93, 242); color:white;border:none;padding:10px;" >+</button><span style="padding-top:10px; padding-left:10px;">Faster</span>
+        <button style="background-color:rgb(52, 93, 242); color:white;border:none;padding:10px;" >+</button><span style="padding-top:10px; padding-left:10px;"><b>Faster</b></span>
         <br><br>
-        <button style="background-color:rgb(52, 93, 242); color:white;border:none; padding:10px;">+</button><span style="padding-top:10px; padding-left:10px;">Reliable</span>
+        <button style="background-color:rgb(52, 93, 242); color:white;border:none; padding:10px;">+</button><span style="padding-top:10px; padding-left:10px;"><b>Reliable</b></span>
     <br><br>
-    <button style="background-color:rgb(52, 93, 242); color:white;border:none;padding:10px;">+</button><span style="padding-top:10px; padding-left:10px;">Easier</span>
+    <button style="background-color:rgb(52, 93, 242); color:white;border:none;padding:10px;">+</button><span style="padding-top:10px; padding-left:10px;"><b>Easier</b></span>
     </div>
     <br>
         </div>
@@ -154,7 +154,7 @@
           </div>
         </div>
       
-        <div class="text-center text-gray-700 p-4" style="background-color: rgba(0, 0, 0, 0.2);">
+        <div class="text-center text-gray-700 p-4" style="background-color: rgba(0, 0, 0, 0.2); min-width:400px;">
             © 2022 Copyright Reserved
           </div>
       </footer>
