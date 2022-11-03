@@ -21,7 +21,7 @@
                       <b>Time</b>
                     </th>
                     <th scope="col" class="text-sm font-medium text-gray-900 px-12 py-4 text-left">
-                      <b>Select</b>
+                      <b></b>
                     </th>
                   </tr>
                 </thead>

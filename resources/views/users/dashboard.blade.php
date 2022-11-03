@@ -31,8 +31,8 @@
                 transition
                 ease-in-out
                 m-0
-                focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example">
-                  <option selected>Open this select menu</option>
+                focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example" name="department">
+                  <option selected >Open this select menu</option>
                   @foreach ($depts as $dept)
                     <option value="{{ $dept->id }}">{{ $dept->name }} </option>
                   @endforeach
