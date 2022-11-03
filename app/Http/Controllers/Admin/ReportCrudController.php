@@ -34,6 +34,10 @@ class ReportCrudController extends CrudController
 
         if (backpack_user()->hasRole('Nurse')) {
             $this->crud->allowAccess('create', 'edit', 'delete');
+
+            $this->crud->addClause('whereHas', 'appointment', function($q){
+                $q->where('doctor_id', backpack_user()->doctor_id);
+            });
         }
     }
 

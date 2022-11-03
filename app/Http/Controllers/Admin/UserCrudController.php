@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\UserRequest;
-use App\Http\Requests\UserEditRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
@@ -20,8 +19,6 @@ class UserCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 
-    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation { store as traitStore; }
-
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
      * 
@@ -30,12 +27,8 @@ class UserCrudController extends CrudController
     public function setup()
     {
         CRUD::setModel(\App\Models\User::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/patient');
-        CRUD::setEntityNameStrings('patient', 'patients');
-
-        $this->crud->addClause('whereHas', 'roles', function($q){
-            $q->where('name', 'Patient');
-        });
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/user');
+        CRUD::setEntityNameStrings('user', 'users');
     }
 
     /**
@@ -46,28 +39,7 @@ class UserCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::column('id');
-        CRUD::column('name');
-        CRUD::column('email');
-        CRUD::column('age');
-        // CRUD::addColumn([
-        //     'label' => 'Doctor',
-        //     'type'  => 'text',
-        //     'value' => function($v) {
-        //         return $v->doctor() ? $v->doctor()->name : '';
-        //     }
-        // ]);
-        // CRUD::addColumn([
-        //     'label' => 'Department',
-        //     'type'  => 'text',
-        //     'value' => function($v) {
-        //         return $v->dept() ? $v->dept()->name : '';
-        //     },
-        //     'orderable' => true,
 
-        // ]);
-        CRUD::column('gender');
-        CRUD::column('address');
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');

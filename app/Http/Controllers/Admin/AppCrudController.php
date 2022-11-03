@@ -214,6 +214,7 @@ class AppCrudController extends CrudController
         $this->crud->getRequest()->request->add(['priority'=> $priority]);
         
         $response = $this->traitUpdate();
+
         // do something after save
         return $response;
     }

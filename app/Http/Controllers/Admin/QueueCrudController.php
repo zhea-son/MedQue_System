@@ -37,6 +37,8 @@ class QueueCrudController extends CrudController
         $this->crud->addClause('where', 'doctor_id', '=', backpack_user()->doctor_id);
         $this->crud->addClause('where', 'status', '=', 'Paid');
         $this->crud->addClause('where', 'date', '=', now()->toDateString());
+
+        $this->crud->orderBy('priority', 'DESC')->orderBy('created_at', 'ASC');
     }
 
     /**
