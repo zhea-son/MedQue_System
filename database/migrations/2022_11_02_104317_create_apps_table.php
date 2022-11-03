@@ -22,7 +22,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained();
             $table->unsignedBigInteger('doctor_id');
             $table->foreignId('dept_id')->constrained();
-            $table->boolean('is_online')->default('true');
+            $table->boolean('is_online')->default(true);
             $table->timestamps();
         });
     }

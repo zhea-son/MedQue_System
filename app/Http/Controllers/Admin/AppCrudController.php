@@ -53,7 +53,17 @@ class AppCrudController extends CrudController
                 return $v->doc() ? $v->doc()->name : '';
             }
         ]);
-        CRUD::column('dept');
+        CRUD::addColumn([
+            'name' => 'dept',
+            'label' => 'Department'
+        ]);
+        CRUD::column('status');
+        CRUD::column('priority');
+        CRUD::addColumn([
+            'name'  => 'is_online',
+            'label' => 'Is Online',
+            'type'  => 'boolean',
+        ]);
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
