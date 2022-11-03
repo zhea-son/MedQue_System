@@ -20,4 +20,8 @@ Route::get('/', function () {
 
 Route::get('/dashboard', [UserController::class, 'index'] )->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/availability', function () {
+    return view('users.availability');
+});
+
 require __DIR__.'/auth.php';
