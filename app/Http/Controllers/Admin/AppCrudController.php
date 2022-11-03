@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Mail\SlotFull;
+use Illuminate\Http\Request;
 use App\Http\Requests\AppRequest;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\AppEditRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
@@ -214,6 +217,7 @@ class AppCrudController extends CrudController
         $this->crud->getRequest()->request->add(['priority'=> $priority]);
         
         $response = $this->traitUpdate();
+
         // do something after save
         return $response;
     }
@@ -317,8 +321,25 @@ class AppCrudController extends CrudController
         }
     }
 
-    // public function filterDept()
-    // {
-    //     return 
-    // }
+    public function slotFull(Request $request)
+    {
+        $doc_t = \App\Models\DoctorTime::where('user_id', $request->doc)->first();
+        
+        $apps = \App\Models\App::where('expected_time', '>=', $doc_t->start)
+                                    ->where('expected_time', '<=', $doc_t->end)
+                                    ->where('status', 'Unpaid')
+                                    ->where('doctor_id', $request->doc)
+                                    ->where('date', now()->toDateString())
+                                    ->get();
+        
+        $user_emails = [];
+
+        foreach ($apps as $app) {
+            array_push($user_emails, $app->user->email);
+        }
+
+        Mail::to($user_emails)->send(new SlotFull());
+
+        return redirect(backpack_url('queue'))->with('success', 'Mails Sent.');
+    }
 }

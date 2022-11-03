@@ -81,12 +81,7 @@ class DoctorCrudController extends CrudController
      * @see https://backpackforlaravel.com/docs/crud-operation-create
      * @return void
      */
-    protected function setupCreateOperation()
-    {
-        CRUD::setValidation(DoctorRequest::class);
-
-        
-
+    protected function setupCreateOperation(){
         /**
          * Fields can be defined using the fluent syntax or array syntax:
          * - CRUD::field('price')->type('number');
@@ -102,6 +97,92 @@ class DoctorCrudController extends CrudController
      */
     protected function setupUpdateOperation()
     {
-        $this->setupCreateOperation();
+        CRUD::setValidation(UserEditRequest::class);
+        
+        $this->addUserFields(); 
+
+        \App\Models\User::updating(function ($entry) {
+            if (request('password') == null) {
+                $entry->password = $entry->getOriginal('password');
+            } else {
+                $entry->password = \Hash::make(request('password'));
+            }
+            $entry->dept_id = $this->crud->getRequest()->dpt;
+            $entry->doctor_id = $this->crud->getRequest()->dct;
+        });
+    }
+
+    protected function addUserFields()
+    {
+        CRUD::field('name');
+        CRUD::field('email');
+        CRUD::field('password');
+        CRUD::field('age');
+        
+        $doctors = \App\Models\User::role('Doctor')->pluck('name','id')->toArray();
+        $depts = \App\Models\Dept::pluck('name','id')->toArray();
+        if ($this->crud->getCurrentOperation() == 'update') {
+            $user_id = explode('/',$this->crud->getRequest()->getRequestUri())[3];
+            $user = \App\Models\User::find($user_id);
+
+            CRUD::addField([
+                // select_from_array
+                'name'    => 'dct',
+                'label'   => 'Doctor',
+                'type'    => 'select_from_array',
+                'options' => $doctors,
+                'default' => $user->doctor_id
+            ]);
+            CRUD::addField([
+                // select_from_array
+                'name'    => 'dpt',
+                'fake' => true,
+                'label'   => 'Department',
+                'type'    => 'select_from_array',
+                'options' => $depts,
+                'default' => $user->dept_id
+            ]);
+        } else {
+            CRUD::addField([
+                // select_from_array
+                'name'    => 'dct',
+                'label'   => 'Doctor',
+                'type'    => 'select_from_array',
+                'options' => $doctors,
+            ]);
+            CRUD::addField([
+                // select_from_array
+                'name'    => 'dpt',
+                'fake' => true,
+                'label'   => 'Department',
+                'type'    => 'select_from_array',
+                'options' => $depts,
+            ]);
+        }
+
+
+        CRUD::addField([
+            // select_from_array
+            'name'    => 'gender',
+            'label'   => 'Gender',
+            'type'    => 'select_from_array',
+            'options' => [
+                'Male' => 'Male',
+                'Female' => 'Female'
+            ],
+        ]);
+
+        CRUD::addField([   // Checklist
+            'label'     => 'Roles',
+            'type'      => 'checklist',
+            'name'      => 'roles',
+            'entity'    => 'roles',
+            'attribute' => 'name',
+            'model'     => "Backpack\PermissionManager\app\Models\Role",
+            'pivot'     => true,
+            // 'number_of_columns' => 3,
+        ]);
+
+        CRUD::field('address');
     }
 }

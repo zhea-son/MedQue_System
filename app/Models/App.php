@@ -81,7 +81,11 @@ class App extends Model
     | ACCESSORS
     |--------------------------------------------------------------------------
     */
-
+    public function slotFull($crud = false)
+    {
+        $doc_id = backpack_user()->doctor_id;
+        return '<a class="btn btn-xs btn-primary" href="/admin/slot-full?doc='. urlencode($doc_id) .'"' . 'data-toggle="tooltip" title="View appointments of department."><i class="la la-battery-full"></i> Slot Full</a>';
+    }
     /*
     |--------------------------------------------------------------------------
     | MUTATORS

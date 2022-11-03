@@ -36,7 +36,7 @@ class Report extends Model
     */
     public function appointment()
     {
-        return $this->belongsTo(App::class);
+        return $this->belongsTo(App::class, 'app_id');
     }
 
     /*

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\AppScheduled;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -60,6 +61,8 @@ class UserController extends Controller
             'doctor_id' => $doctor->id,
             'dept_id' => $doctor->dept_id
         ]);
+
+        Mail::to($request->user()->email)->send(new AppScheduled($date, $request->expected_time, $doctor->name));
 
         return redirect()->route('dashboard')->with('success', 'Appointment booked successfully.');
     }

@@ -60,7 +60,7 @@
                                         <input type="hidden" name="date" value="{{ $data['date'] }}">
                                         <input type="hidden" name="expected_time"
                                             value="{{ $data['expected_time'] }}">
-                                        <button class="rounded pill px-4 py-2 bg-blue-300 text-gray-700 hover:text-gray-800 hover:bg-blue-400 disabled:bg-gray-300 disabled:cursor-not-allowed" {{ $packed ? 'disabled' : ''}} type="submit">Select</button>
+                                        <button class="rounded pill px-4 py-2 bg-blue-300 text-gray-700 hover:text-gray-800 hover:bg-blue-400 disabled:bg-gray-300 disabled:cursor-not-allowed" {{ $packed || is_null($data['expected_time']) ? 'disabled' : ''}} type="submit">Select</button>
                                     </form>
                                 </td>
                             </tr>
