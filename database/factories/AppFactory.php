@@ -24,14 +24,15 @@ class AppFactory extends Factory
     {
         $patients = User::role('Patient')->pluck('id')->toArray();
         $doctors = User::role('Doctor')->pluck('id')->toArray();
-
+        $severities = ['Emergency', 'Urgent', 'Referal', 'Normal'];
         $doctor_id = $doctors[array_rand($doctors, 1)];
         return [
             'expected_time' => \App\Models\App::getExpectedTime(now()->toDateString(), $doctor_id),
             'date' => now()->toDateString(),
             'user_id' => $patients[array_rand($patients, 1)],
             'doctor_id' => $doctor_id,
-            'status' => mt_rand(0,1) ? 'Unpaid' : 'Paid'
+            'status' => mt_rand(0,1) ? 'Unpaid' : 'Paid',
+            'severity'=> $severities[array_rand($severities, 1)]
         ];
 
     }

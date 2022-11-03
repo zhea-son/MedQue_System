@@ -18,6 +18,7 @@ return new class extends Migration
             $table->time('expected_time')->nullable();
             $table->date('date');
             $table->enum('status', ['Unpaid', 'Paid', 'Checked'])->default('Unpaid');
+            $table->enum('severity', ['Emergency', 'Urgent', 'Referal', 'Normal'])->default('Normal');
             $table->integer('priority')->default(1);
             $table->foreignId('user_id')->constrained();
             $table->unsignedBigInteger('doctor_id');

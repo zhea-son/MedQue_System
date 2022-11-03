@@ -60,6 +60,7 @@ class AppCrudController extends CrudController
             'label' => 'Department'
         ]);
         CRUD::column('status');
+        CRUD::column('severity');
         CRUD::column('priority');
         CRUD::addColumn([
             'name'  => 'is_online',
@@ -111,6 +112,7 @@ class AppCrudController extends CrudController
         $this->crud->addField(['type' => 'hidden', 'name' => 'expected_time']);
         $this->crud->addField(['type' => 'hidden', 'name' => 'doctor_id']);
         $this->crud->addField(['type' => 'hidden', 'name' => 'is_online']);
+        $this->crud->addField(['type' => 'hidden', 'name' => 'dept_id']);
         // $this->crud->removeField('password_confirmation');
 
         // Note: By default Backpack ONLY saves the inputs that were added on page using Backpack fields.
@@ -130,11 +132,14 @@ class AppCrudController extends CrudController
         // $this->crud->getRequest()->request->remove('password_confirmation');
         
         $doctor_id = $this->crud->getRequest()->dct;
+        $doctor = \App\Models\User::find($doctor_id);
         $date = $this->crud->getRequest()->date;
         $this->crud->getRequest()->request->remove('dct');
 
         $this->crud->getRequest()->request->add(['expected_time'=> \App\Models\App::getExpectedTime($date, $doctor_id)]);
         $this->crud->getRequest()->request->add(['doctor_id'=> $doctor_id]);
+        $this->crud->getRequest()->request->add(['dept_id'=> $doctor->dept_id]);
+    
         $this->crud->getRequest()->request->add(['is_online'=> false]);
 
         $response = $this->traitStore();
@@ -228,6 +233,18 @@ class AppCrudController extends CrudController
                         'Checked' => 'Checked',
                     ]
                 ],
+                [
+                    // select_from_array
+                    'name'    => 'severity',
+                    'label'   => 'Severity',
+                    'type'    => 'select_from_array',
+                    'options' => [
+                        'Emergency' => 'Emergency',
+                        'Urgent' => 'Urgent',
+                        'Referal' => 'Referal',
+                        'Normal' => 'Normal',
+                    ]
+                ],
                 [   // Checkbox
                     'name'  => 'is_critical',
                     'label' => 'Critical case',
@@ -259,10 +276,6 @@ class AppCrudController extends CrudController
             ]);
         }
 
-        CRUD::addField([
-            'name' => 'dept_id',
-            'label' => 'Department'
-        ]);
     }
 
 
