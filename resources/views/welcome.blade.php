@@ -4,11 +4,12 @@
 @section('content')
     
 <div class="herosection  bg-slate-200 " style="height:auto; width:100%;">
-    <h1 style="font-weight:bold; text-align:center; font-size:70px;padding-top:40px;">Welcome to MediQueing System</h1>
-    <br>
+    <h1 style="font-weight:bold; text-align:center; font-size:70px;padding-top:20px;">Welcome to MediQueing System</h1>
+    
 <h2 class="text-center" style="font-size:20px;">
     Make life easier with the medicare,by taking the service 
 </h2>
+<br><br>
 </div> 
 <br>
 {{-- <div class="img" >
@@ -47,7 +48,7 @@
 </div>
 
 {{-- images and desc// third section --}}
-
+<br><br>
 <div class="imgtext " style="width:100%;height:500px; display:flex; justify-content:center;">
     <div class="img" style="width:450px ;height:400px; overflow:hidden;">
         <img src="/images/doctor.jpg" style="width:100%; height:60vh;" style="background-size:cover;">
