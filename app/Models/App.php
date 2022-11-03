@@ -50,10 +50,16 @@ class App extends Model
     }
 
     public static function loadAppointments() {
-        $depts = Dept::pluck('id');
+        $doc_depts = \App\Models\User::role('Doctor')->select('id','dept_id')->get();
 
-        foreach ($depts as $dept) {
-            \App\Models\App::factory(15)->create(['dept_id' => $dept]);
+        foreach ($doc_depts as $doc_dept) {
+            \App\Models\App::factory(15)->create(
+                [
+                    'dept_id' => $doc_dept->dept_id,
+                    'doctor_id' =>$doc_dept->id,
+                    'expected_time' => \App\Models\App::getExpectedTime(now()->toDateString(), $doc_dept->id),
+                ]
+            );
         }
     }
     /*
