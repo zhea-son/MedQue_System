@@ -21,47 +21,42 @@
                       <b>Time</b>
                     </th>
                     <th scope="col" class="text-sm font-medium text-gray-900 px-12 py-4 text-left">
+                      <b>Availability</b>
+                    </th>
+                    <th scope="col" class="text-sm font-medium text-gray-900 px-12 py-4 text-left">
                       <b></b>
                     </th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">1</td>
-                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                      Mark
-                    </td>
-                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                      10:00
-                    </td>
-                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                <button style="background-color:rgb(15, 96, 247);color:white;padding:5px;">Select</button>
-
-                    </td>
-                  </tr>
-                  <tr class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">2</td>
-                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                      Jacob
-                    </td>
-                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                      11:00
-                    </td>
-                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        <button style="background-color:rgb(15, 96, 247);color:white;padding:5px;">Select</button>
-                    </td>
-                  </tr>
-                  <tr class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">3</td>
-                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                      Larry
-                    </td>
-                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        12:00
-                    </td>
-                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        <button style="background-color:rgb(15, 96, 247);color:white;padding:5px;">Select</button>
-                    </td>
+                  @foreach ($doctors_data as $data)    
+                    <tr class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
+                      <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $loop->index + 1 }}</td>
+                      <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                        {{ $data['name'] }}
+                      </td>
+                      <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                        {{ $data['start'] }} - {{ $data['end'] }}
+                      </td>
+                      <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                        @if($data['expected_time'])
+                          Available at {{$data['expected_time']}}
+                        @else
+                          Not Available
+                        @endif
+                      </td>
+                      <td>
+                        <form action="{{ route('app.store') }}" method="POST">
+                          @csrf
+                          @method('POST')
+                          <input type="hidden" name="doctor_id" value="{{ $data['id'] }}">
+                          <input type="hidden" name="date" value="{{ $data['date'] }}">
+                          <input type="hidden" name="expected_time" value="{{ $data['expected_time'] }}">
+                          <button style="background-color:rgb(15, 96, 247);color:white;padding:5px;">Select</button>
+                        </form>
+                      </td>
+                    </tr>
+                  @endforeach
                   </tr>
                 </tbody>
               </table>

@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Models;
-
 use Illuminate\Database\Eloquent\Model;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -38,15 +37,23 @@ class App extends Model
         $max = \App\Models\App::where('date', $date)->where('doctor_id', $doctor_id)->max('expected_time');
         $doc_t = \App\Models\DoctorTime::where('user_id', $doctor_id)->first();
         if ($max) {
-            $next_ts = strtotime($date . ' ' . $max) + 5*60;
+            $next_ts = strtotime($date . ' ' . $max) + config('app.time_frame')*60;
             $end_ts = strtotime($date . ' ' . ($doc_t->end ?? '20:00:00'));
             if ($next_ts > $end_ts) {
                 return null;
             } else {
-                return date('H:i:s', strtotime($max) + 5*60);
+                return date('H:i:s', $next_ts);
             }
         } else {
             return ($doc_t->start ?? '07:00:00');
+        }
+    }
+
+    public static function loadAppointments() {
+        $depts = Dept::pluck('id');
+
+        foreach ($depts as $dept) {
+            \App\Models\App::factory(8)->create(['dept_id' => $dept]);
         }
     }
     /*
