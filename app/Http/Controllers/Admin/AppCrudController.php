@@ -32,6 +32,8 @@ class AppCrudController extends CrudController
         CRUD::setModel(\App\Models\App::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/appointment');
         CRUD::setEntityNameStrings('appointment', 'appointments');
+
+        $this->crud->orderBy('priority');
     }
 
     /**
