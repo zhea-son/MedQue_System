@@ -4,39 +4,30 @@
    
      $widgets['before_content'][] = [
     'type'        => 'progress',
-    'class'       => 'card text-white bg-primary mb-2',
-    'value'       => '11.456',
-    'description' => 'Registered users.',
-    'progress'    => 57, // integer
-    'hint'        => '8544 more until next milestone.',
+    'class'       => 'card text-white text-center bg-primary mb-2',
+    'value'       => '11',
+    'description' => 'Doctors',
+   
 ];
 
     $widgets['before_content'][] = [
     'type'        => 'progress',
-    'class'       => 'card text-white bg-primary mb-2',
-    'value'       => '11.456',
-    'description' => 'Registered users.',
-    'progress'    => 57, // integer
-    'hint'        => '8544 more until next milestone.',
+    'class'       => 'card text-white text-center bg-primary mb-2',
+    'value'       => '20',
+    'description' => 'Nurse',
+   
 ];
 
     $widgets['before_content'][] = [
     'type'        => 'progress',
-    'class'       => 'card text-white bg-primary mb-2',
-    'value'       => '11.456',
-    'description' => 'Registered users.',
-    'progress'    => 57, // integer
-    'hint'        => '8544 more until next milestone.',
-];
+    'class'       => 'card text-white text-center bg-primary mb-2',
+    'value'       => '100+',
+    'description' => 'Patients',
+//     'progress'    => 57, // integer
+//     'hint'        => '8544 more until next milestone.',
+ ];
 
-    $widgets['before_content'][] = [
-    'type'        => 'progress',
-    'class'       => 'card text-white bg-primary mb-2',
-    'value'       => '11.456',
-    'description' => 'Registered users.',
-    'progress'    => 57, // integer
-    'hint'        => '8544 more until next milestone.',
-];
+   
 
     
 @endphp
