@@ -98,6 +98,7 @@ class AppCrudController extends CrudController
         // do something before validation, before save, before everything; for example:
         $this->crud->addField(['type' => 'hidden', 'name' => 'expected_time']);
         $this->crud->addField(['type' => 'hidden', 'name' => 'doctor_id']);
+        $this->crud->addField(['type' => 'hidden', 'name' => 'is_online']);
         // $this->crud->removeField('password_confirmation');
 
         // Note: By default Backpack ONLY saves the inputs that were added on page using Backpack fields.
@@ -117,11 +118,12 @@ class AppCrudController extends CrudController
         // $this->crud->getRequest()->request->remove('password_confirmation');
         
         $doctor_id = $this->crud->getRequest()->dct;
-
+        $date = $this->crud->getRequest()->date;
         $this->crud->getRequest()->request->remove('dct');
 
-        $this->crud->getRequest()->request->add(['expected_time'=> now()->format('H:i:s')]);
+        $this->crud->getRequest()->request->add(['expected_time'=> \App\Models\App::getExpectedTime($date, $doctor_id)]);
         $this->crud->getRequest()->request->add(['doctor_id'=> $doctor_id]);
+        $this->crud->getRequest()->request->add(['is_online'=> false]);
 
         $response = $this->traitStore();
         // do something after save
@@ -133,6 +135,7 @@ class AppCrudController extends CrudController
         // do something before validation, before save, before everything; for example:
         $this->crud->addField(['type' => 'hidden', 'name' => 'expected_time']);
         $this->crud->addField(['type' => 'hidden', 'name' => 'doctor_id']);
+        $this->crud->addField(['type' => 'hidden', 'name' => 'is_online']);
         // $this->crud->addField(['type' => 'hidden', 'name' => 'author_id']);
         // $this->crud->removeField('password_confirmation');
 
@@ -158,8 +161,9 @@ class AppCrudController extends CrudController
 
         $this->crud->getRequest()->request->remove('dct');
 
-        $this->crud->getRequest()->request->add(['expected_time'=> now()->format('H:i:s')]);
+        $this->crud->getRequest()->request->add(['expected_time'=> \App\Models\App::getExpectedTime($date, $doctor_id)]);
         $this->crud->getRequest()->request->add(['doctor_id'=> $doctor_id]);
+        $this->crud->getRequest()->request->add(['is_online'=> false]);
         
         $response = $this->traitUpdate();
         // do something after save

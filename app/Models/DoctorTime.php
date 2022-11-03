@@ -5,7 +5,7 @@ namespace App\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 
-class App extends Model
+class DoctorTime extends Model
 {
     use CrudTrait;
 
@@ -15,7 +15,7 @@ class App extends Model
     |--------------------------------------------------------------------------
     */
 
-    protected $table = 'apps';
+    protected $table = 'doctor_times';
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
@@ -28,36 +28,12 @@ class App extends Model
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
-    public function doc()
-    {
-        return User::find($this->doctor_id);
-    }
 
-    public static function getExpectedTime($date, $doctor_id) {
-        $max = \App\Models\App::where('date', $date)->where('doctor_id', $doctor_id)->max('expected_time');
-        $doc_t = \App\Models\DoctorTime::where('user_id', $doctor_id)->first();
-        if ($max) {
-            $next_ts = strtotime($date . ' ' . $max) + 5*60;
-            $end_ts = strtotime($date . ' ' . ($doc_t->end ?? '20:00:00'));
-            if ($next_ts > $end_ts) {
-                return null;
-            } else {
-                return date('H:i:s', strtotime($max) + 5*60);
-            }
-        } else {
-            return ($doc_t->start ?? '07:00:00');
-        }
-    }
     /*
     |--------------------------------------------------------------------------
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-    public function dept()
-    {
-        return $this->belongsTo(Dept::class);
-    }
-
     public function user()
     {
         return $this->belongsTo(User::class);
