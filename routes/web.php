@@ -24,8 +24,7 @@ Route::get('/about', function () {
 
 Route::get('/dashboard', [UserController::class, 'index'] )->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/availability', function () {
-    return view('users.availability');
-});
+Route::get('/availability',[UserController::class, 'availability'] )->middleware(['auth', 'verified'])->name('availability');
+Route::post('/appointment',[UserController::class, 'createAppointment'] )->middleware(['auth', 'verified'])->name('app.store');
 
 require __DIR__.'/auth.php';

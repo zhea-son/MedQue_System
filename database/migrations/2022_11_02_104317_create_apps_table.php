@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('apps', function (Blueprint $table) {
             $table->id();
-            $table->time('expected_time');
+            $table->time('expected_time')->nullable();
             $table->date('date');
             $table->enum('status', ['Unpaid', 'Paid', 'Checked'])->default('Unpaid');
             $table->integer('priority')->default(1);

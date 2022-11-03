@@ -13,25 +13,11 @@
                 <br>
                 <h3 style="font-size:20px;">Request an appointment</h3>
                 <br>
-                <form method="GET" action="/availability">
+                <form method="GET" action="{{ route('availability') }}">
                 <b>Date</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="date" name="date">
                 <br><br>
                 <b>Department</b> &nbsp;&nbsp;
-                <select class="form-select appearance-none
-                block
-                w-full
-                px-3
-                py-1.5
-                text-base
-                font-normal
-                text-gray-700
-                bg-white bg-clip-padding bg-no-repeat
-                border border-solid border-gray-300
-                rounded
-                transition
-                ease-in-out
-                m-0
-                focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example" name="department">
+                <select class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" name="dept_id" aria-label="Default select example" name="department">
                   <option selected >Open this select menu</option>
                   @foreach ($depts as $dept)
                     <option value="{{ $dept->id }}">{{ $dept->name }} </option>

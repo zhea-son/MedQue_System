@@ -29,7 +29,7 @@ return [
     */
 
     'env' => env('APP_ENV', 'production'),
-
+    'time_frame' => 15,
     /*
     |--------------------------------------------------------------------------
     | Application Debug Mode

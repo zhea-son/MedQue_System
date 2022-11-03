@@ -59,4 +59,9 @@ class User extends Authenticatable
     {
         return Dept::find($this->dept_id);
     }
+
+    public function appointments()
+    {
+        return $this->hasMany(App::class);
+    }
 }
