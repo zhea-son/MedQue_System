@@ -14,7 +14,7 @@
                 <h3 style="font-size:20px;">Request an appointment</h3>
                 <br>
                 <form method="GET" action="/availability">
-                <b>Date</b> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" placeholder="07/2/2022">
+                <b>Date</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="date" name="date">
                 <br><br>
                 <b>Department</b> &nbsp;&nbsp;
                 <select class="form-select appearance-none

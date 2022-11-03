@@ -16,23 +16,35 @@ class DeptSeeder extends Seeder
     {
         $depts = [
             [
+                'name' => 'Medicine',
+                'floor' => '1'
+            ],
+            [
+                'name' => 'Orthopedics',
+                'floor' => '1'
+            ],
+            [
+                'name' => 'Maternity',
+                'floor' => '1'
+            ],
+            [
+                'name' => 'Physiotherapy',
+                'floor' => '1'
+            ],
+            [
+                'name' => 'Anesthesiology',
+                'floor' => '2'
+            ],
+            [
                 'name' => 'Casualty',
                 'floor' => '1'
             ],
             [
-                'name' => 'Operating Theatre',
-                'floor' => '1'
+                'name' => 'Surgery',
+                'floor' => '2'
             ],
             [
-                'name' => 'Intensive Care Unit',
-                'floor' => '1'
-            ],
-            [
-                'name' => 'Cardiology',
-                'floor' => '1'
-            ],
-            [
-                'name' => 'Account',
+                'name' => 'Hematology',
                 'floor' => '2'
             ],
             [
@@ -40,16 +52,12 @@ class DeptSeeder extends Seeder
                 'floor' => '2'
             ],
             [
-                'name' => 'General Surgery',
-                'floor' => '2'
+                'name' => 'Radiology',
+                'floor' => '3'
             ],
             [
-                'name' => 'Pathology',
-                'floor' => '2'
-            ],
-            [
-                'name' => 'Pharmacy',
-                'floor' => '2'
+                'name' => 'Cardiology',
+                'floor' => '3'
             ],
         ];
         \App\Models\Dept::insert($depts);
