@@ -25,7 +25,10 @@ class AppRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'name' => 'required|min:5|max:255'
+            'date' => 'required|date',
+            'user_id' => 'required|exists:users,id',
+            'doctor_id' => 'required|exists:users,id',
+            'dept_id' => 'required|exists:depts,id'
         ];
     }
 

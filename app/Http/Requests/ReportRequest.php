@@ -25,7 +25,8 @@ class ReportRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'name' => 'required|min:5|max:255'
+            'app_id' => 'required|exists:apps,id',
+            'media' => 'file|mimes:jpg,bmp,png'
         ];
     }
 
