@@ -16,7 +16,27 @@
                 <form method="GET" action="/availability">
                 <b>Date</b> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" placeholder="07/2/2022">
                 <br><br>
-                <b>Disease</b> &nbsp&nbsp<input type="text" >
+                <b>Department</b> &nbsp;&nbsp;
+                <select class="form-select appearance-none
+                block
+                w-full
+                px-3
+                py-1.5
+                text-base
+                font-normal
+                text-gray-700
+                bg-white bg-clip-padding bg-no-repeat
+                border border-solid border-gray-300
+                rounded
+                transition
+                ease-in-out
+                m-0
+                focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example">
+                  <option selected>Open this select menu</option>
+                  @foreach ($depts as $dept)
+                    <option value="{{ $dept->id }}">{{ $dept->name }} </option>
+                  @endforeach
+              </select>
                 <br><br>
                 <button class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="submit">
                   Search
