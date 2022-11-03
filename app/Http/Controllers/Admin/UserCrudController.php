@@ -30,8 +30,12 @@ class UserCrudController extends CrudController
     public function setup()
     {
         CRUD::setModel(\App\Models\User::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/user');
-        CRUD::setEntityNameStrings('user', 'users');
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/patient');
+        CRUD::setEntityNameStrings('patient', 'patients');
+
+        $this->crud->addClause('whereHas', 'roles', function($q){
+            $q->where('name', 'Patient');
+        });
     }
 
     /**
@@ -46,42 +50,24 @@ class UserCrudController extends CrudController
         CRUD::column('name');
         CRUD::column('email');
         CRUD::column('age');
-        CRUD::addColumn([
-            'label' => 'Doctor',
-            'type'  => 'text',
-            'value' => function($v) {
-                return $v->doctor() ? $v->doctor()->name : '';
-            }
-        ]);
-        CRUD::addColumn([
-            'label' => 'Department',
-            'type'  => 'text',
-            'value' => function($v) {
-                return $v->dept() ? $v->dept()->name : '';
-            },
-            'orderable' => true,
+        // CRUD::addColumn([
+        //     'label' => 'Doctor',
+        //     'type'  => 'text',
+        //     'value' => function($v) {
+        //         return $v->doctor() ? $v->doctor()->name : '';
+        //     }
+        // ]);
+        // CRUD::addColumn([
+        //     'label' => 'Department',
+        //     'type'  => 'text',
+        //     'value' => function($v) {
+        //         return $v->dept() ? $v->dept()->name : '';
+        //     },
+        //     'orderable' => true,
 
-        ]);
+        // ]);
         CRUD::column('gender');
         CRUD::column('address');
-
-        CRUD::addColumn([
-            'name'  => 'roles',
-            'label' => 'Roles',
-            'type'  => 'text',
-            'value' => function($v) {
-                $str = '';
-                foreach ($v->roles as $key => $value) {
-                    if ($key == count($v->roles)-1)
-                        $str .= $value->name;
-                    else 
-                        $str .= $value->name . ', ';
-                }
-                return $str;
-            }
-        ]);
-        CRUD::column('address');
-
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');

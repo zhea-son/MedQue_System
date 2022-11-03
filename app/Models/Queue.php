@@ -5,7 +5,7 @@ namespace App\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 
-class Dept extends Model
+class Queue extends Model
 {
     use CrudTrait;
 
@@ -15,7 +15,7 @@ class Dept extends Model
     |--------------------------------------------------------------------------
     */
 
-    protected $table = 'depts';
+    protected $table = 'queues';
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
@@ -46,10 +46,7 @@ class Dept extends Model
     | ACCESSORS
     |--------------------------------------------------------------------------
     */
-    public function viewAppointment($crud = false)
-    {
-        return '<a class="btn btn-sm btn-link" href="/admin/appointment?dept='. urlencode($this->id) .'"' . 'data-toggle="tooltip" title="View appointments of department."><i class="la la-search"></i> View appointment</a>';
-    }
+
     /*
     |--------------------------------------------------------------------------
     | MUTATORS

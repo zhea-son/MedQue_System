@@ -53,7 +53,7 @@ class App extends Model
         $depts = Dept::pluck('id');
 
         foreach ($depts as $dept) {
-            \App\Models\App::factory(30)->create(['dept_id' => $dept]);
+            \App\Models\App::factory(15)->create(['dept_id' => $dept]);
         }
     }
     /*

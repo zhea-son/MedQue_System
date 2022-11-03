@@ -27,6 +27,10 @@ class UserController extends Controller
         $doctors = \App\Models\User::role('Doctor')->where('dept_id', $request->dept_id)->get();
         $date = $request->date;
 
+        $packed = \App\Models\App::where('user_id', $request->user()->id)
+                                            ->where('date', $date)
+                                            ->count() >=2;
+
         foreach ($doctors as $doctor) {
             $doc_t = \App\Models\DoctorTime::where('user_id', $doctor->id)->first();
 
@@ -41,7 +45,7 @@ class UserController extends Controller
             ]);
         }
 
-        return view('users.availability', compact('doctors_data'));
+        return view('users.availability', compact('doctors_data', 'packed'));
     }
 
     public function createAppointment(Request $request)

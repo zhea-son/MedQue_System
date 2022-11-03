@@ -42,6 +42,7 @@ class DeptCrudController extends CrudController
         CRUD::column('name');
         CRUD::column('floor');
         
+        $this->crud->addButtonFromModelFunction('line', 'view_appointment', 'viewAppointment', 'beginning');
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
