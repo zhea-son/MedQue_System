@@ -32,7 +32,8 @@ class AppFactory extends Factory
             'user_id' => $patients[array_rand($patients, 1)],
             'doctor_id' => $doctor_id,
             'status' => mt_rand(0,1) ? 'Unpaid' : 'Paid',
-            'severity'=> $severities[array_rand($severities, 1)]
+            'severity'=> $severities[array_rand($severities, 1)],
+            'priority' => mt_rand(1,4)
         ];
 
     }
