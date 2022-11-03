@@ -36,7 +36,8 @@ class AppFactory extends Factory
             'expected_time' => self::$et,
             'date' => now()->toDateString(),
             'user_id' => array_rand($patients, 1),
-            'doctor_id' => array_rand($doctors, 1)
+            'doctor_id' => array_rand($doctors, 1),
+            'status' => mt_rand(0,1) ? 'Unpaid' : 'Paid'
         ];
 
     }

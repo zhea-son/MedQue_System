@@ -35,7 +35,7 @@ class UpdatePriorities extends Command
 
         $unpaid = \App\Models\App::where('date', $date)
                                     ->where('status', 'Unpaid')
-                                    ->where('expected_time', '<=', now())
+                                    ->where('expected_time', '<=', now()->addMinutes(15))
                                     ->get();
 
         foreach ($paid as $app) {
