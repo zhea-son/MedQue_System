@@ -59,6 +59,8 @@ class QueueCrudController extends CrudController
         $this->crud->removeButton('show');
         $this->crud->removeButton('delete');
 
+        $this->crud->addButtonFromModelFunction('top', 'slot_full', 'slotFull', 'beginning');
+
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');
