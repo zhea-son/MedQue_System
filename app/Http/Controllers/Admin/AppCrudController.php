@@ -168,12 +168,17 @@ class AppCrudController extends CrudController
         // $this->crud->getRequest()->request->remove('password_confirmation');
 
         $doctor_id = $this->crud->getRequest()->dct;
-
+        $date = $this->crud->getRequest()->date;
         $this->crud->getRequest()->request->remove('dct');
 
         $this->crud->getRequest()->request->add(['expected_time'=> \App\Models\App::getExpectedTime($date, $doctor_id)]);
         $this->crud->getRequest()->request->add(['doctor_id'=> $doctor_id]);
         $this->crud->getRequest()->request->add(['is_online'=> false]);
+
+        if($this->crud->getRequest()->is_critical) {
+            $this->crud->addField(['type' => 'hidden', 'name' => 'priority']);
+            $this->crud->getRequest()->request->add(['priority'=> 3]);
+        }
         
         $response = $this->traitUpdate();
         // do something after save
@@ -200,14 +205,48 @@ class AppCrudController extends CrudController
             $appointment_id = explode('/',$this->crud->getRequest()->getRequestUri())[3];
             $appointment = \App\Models\App::find($appointment_id);
 
+            
+            CRUD::addFields([
+                [
+                    // select_from_array
+                    'name'    => 'dct',
+                    'label'   => 'Doctor',
+                    'type'    => 'select_from_array',
+                    'options' => $doctors,
+                    'default' => $appointment->doctor_id
+                ],
+                [
+                    // select_from_array
+                    'name'    => 'status',
+                    'label'   => 'Status',
+                    'type'    => 'select_from_array',
+                    'options' => [
+                        'Unpaid' => 'Unpaid',
+                        'Paid' => 'Paid',
+                        'Checked' => 'Checked',
+                    ]
+                ],
+                [   // Checkbox
+                    'name'  => 'is_critical',
+                    'label' => 'Critical case',
+                    'fake'  => 'true',
+                    'type'  => 'checkbox'
+                ],
+            ]);
+
             CRUD::addField([
                 // select_from_array
-                'name'    => 'dct',
-                'label'   => 'Doctor',
+                'name'    => 'status',
+                'label'   => 'Status',
                 'type'    => 'select_from_array',
-                'options' => $doctors,
-                'default' => $appointment->doctor_id
+                'options' => [
+                    'Unpaid' => 'Unpaid',
+                    'Paid' => 'Paid',
+                    'Checked' => 'Checked',
+                ],
             ]);
+
+
         } else {
             CRUD::addField([
                 // select_from_array
