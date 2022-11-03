@@ -9,6 +9,9 @@
             <div class="inline-block min-w-full sm:px-6 lg:px-8 flex flex-col justify-center items-center"
                 style="max-width: 800px">
                 <div class="p-6 bg-white border-b border-gray-200 my-1 min-w-full">
+                    @if ($packed)
+                        <p>You already have two appointments for this date. Please select a different date.</p>
+                    @endif
                     <p><a class="text-blue-500 hover:text-blue-700" href="{{ route('dashboard') }} ">Check</a> availability on a different date.</p>
                 </div>
                 <table class="min-w-100 mt-10 rounded">
@@ -57,7 +60,7 @@
                                         <input type="hidden" name="date" value="{{ $data['date'] }}">
                                         <input type="hidden" name="expected_time"
                                             value="{{ $data['expected_time'] }}">
-                                        <button class="rounded pill px-4 py-2 bg-blue-300 text-gray-700 hover:text-gray-800 hover:bg-blue-400" type="submit">Select</button>
+                                        <button class="rounded pill px-4 py-2 bg-blue-300 text-gray-700 hover:text-gray-800 hover:bg-blue-400 disabled:bg-gray-300 disabled:cursor-not-allowed" {{ $packed ? 'disabled' : ''}} type="submit">Select</button>
                                     </form>
                                 </td>
                             </tr>

@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\RoleRequest;
+use App\Http\Requests\NurseRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
- * Class RoleCrudController
+ * Class NurseCrudController
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class RoleCrudController extends CrudController
+class NurseCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -26,9 +26,15 @@ class RoleCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\Role::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/role');
-        CRUD::setEntityNameStrings('role', 'roles');
+        CRUD::setModel(\App\Models\User::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/nurse');
+        CRUD::setEntityNameStrings('nurse', 'nurses');
+        
+        $this->crud->denyAccess('create', 'update', 'delete');
+
+        $this->crud->addClause('whereHas', 'roles', function($q){
+            $q->where('name', 'Nurse');
+        });
     }
 
     /**
@@ -39,8 +45,27 @@ class RoleCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        CRUD::column('id');
         CRUD::column('name');
-        CRUD::column('guard_name');
+        CRUD::column('email');
+        CRUD::addColumn([
+            'label' => 'Doctor',
+            'type'  => 'text',
+            'value' => function($v) {
+                return $v->doctor() ? $v->doctor()->name : '';
+            }
+        ]);
+        // CRUD::addColumn([
+        //     'label' => 'Department',
+        //     'type'  => 'text',
+        //     'value' => function($v) {
+        //         return $v->dept() ? $v->dept()->name : '';
+        //     },
+        //     'orderable' => true,
+
+        // ]);
+        CRUD::column('gender');
+        CRUD::column('address');
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -57,10 +82,9 @@ class RoleCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(RoleRequest::class);
+        CRUD::setValidation(NurseRequest::class);
 
-        CRUD::field('name');
-        CRUD::field('guard_name');
+        
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:

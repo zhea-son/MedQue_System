@@ -29,6 +29,12 @@ class ReportCrudController extends CrudController
         CRUD::setModel(\App\Models\Report::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/report');
         CRUD::setEntityNameStrings('report', 'reports');
+
+        $this->crud->denyAccess('create', 'edit', 'delete');
+
+        if (backpack_user()->hasRole('Nurse')) {
+            $this->crud->allowAccess('create', 'edit', 'delete');
+        }
     }
 
     /**
@@ -84,7 +90,9 @@ class ReportCrudController extends CrudController
     {
         CRUD::setValidation(ReportRequest::class);
 
-        $apps = \App\Models\App::all();
+        $apps = \App\Models\App::where('doctor_id', backpack_user()->doctor_id)
+                                    ->where('status', 'Checked')
+                                    ->get();
         $apps_array = [];
         foreach ($apps as $app) {
             $apps_array[$app->id] = $app->user->name . ' -- ' . $app->expected_time . ' -- ' . $app->dept->name;
