@@ -5,9 +5,9 @@
 @if (backpack_user()->hasRole('Admin'))
     <li class="nav-item"><a class="nav-link" href="{{ backpack_url('patient') }}"><i class="la la-users nav-icon"></i>
             Patient</a></li>
-    <li class="nav-item"><a class="nav-link" href="{{ backpack_url('doctor') }}"><i class="nav-icon la la-question"></i>
+    <li class="nav-item"><a class="nav-link" href="{{ backpack_url('doctor') }}"><i class="nav-icon la la-stethoscope"></i>
             Doctors</a></li>
-    <li class="nav-item"><a class="nav-link" href="{{ backpack_url('nurse') }}"><i class="nav-icon la la-question"></i>
+    <li class="nav-item"><a class="nav-link" href="{{ backpack_url('nurse') }}"><i class="nav-icon la la-nurse"></i>
             Nurses</a></li>
     <li class="nav-item"><a class="nav-link" href="{{ backpack_url('role') }}"><i class="nav-icon la la-user-tag"></i>
             Roles</a></li>
