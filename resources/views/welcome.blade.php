@@ -4,7 +4,7 @@
 @section('content')
     
 <div class="herosection  bg-slate-200 " style="height:auto; width:100%;">
-    <h1 style="font-weight:bold; text-align:center; font-size:70px;padding-top:20px;">Welcome to MediQueing System</h1>
+    <h1 style="font-weight:bold; text-align:center; font-size:70px;padding-top:20px;">Welcome to MediQueue System</h1>
     
 <h2 class="text-center" style="font-size:20px;">
     Make life easier with the medicare,by taking the service 

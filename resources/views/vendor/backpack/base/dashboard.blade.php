@@ -5,7 +5,7 @@
      $widgets['before_content'][] = [
     'type'        => 'progress',
     'class'       => 'card text-white text-center bg-primary mb-2',
-    'value'       => '11',
+    'value'       => '30+',
     'description' => 'Doctors',
    
 ];
@@ -13,7 +13,7 @@
     $widgets['before_content'][] = [
     'type'        => 'progress',
     'class'       => 'card text-white text-center bg-primary mb-2',
-    'value'       => '20',
+    'value'       => '30+',
     'description' => 'Nurse',
    
 ];
@@ -27,12 +27,14 @@
 //     'hint'        => '8544 more until next milestone.',
  ];
 
+ 
+
+  
    
 
     
 @endphp
 
 @section('content')
-<p>Your custom HTML can live here</p> 
->>>>>>>>> Temporary merge branch 2<<<<<<<<
+ 
 @endsection
